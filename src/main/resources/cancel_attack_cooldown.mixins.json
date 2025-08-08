@@ -9,9 +9,7 @@
     "LivingEntityMixin",
     "PlayerMixin"
   ],
-  "client": [
-    "GuiMixin"
-  ],
+  "client": [],
   "server": [],
   "injectors": {
     "defaultRequire": 1
