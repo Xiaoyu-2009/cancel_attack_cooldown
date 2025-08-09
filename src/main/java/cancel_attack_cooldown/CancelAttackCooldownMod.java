@@ -1,8 +1,8 @@
 package cancel_attack_cooldown;
 
-import net.minecraftforge.fml.common.Mod;
+import net.fabricmc.api.ModInitializer;
 
-@Mod("cancel_attack_cooldown")
-public class CancelAttackCooldownMod {
-    public CancelAttackCooldownMod() {}
+public class CancelAttackCooldownMod implements ModInitializer {
+    @Override
+    public void onInitialize() {}
 }
