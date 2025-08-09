@@ -18,7 +18,7 @@ public class PlayerMixin {
     private void getAttackStrengthScale(float partialTicks, CallbackInfoReturnable<Float> cir) {
         cir.setReturnValue(1.0F);
     }
-    
+
     @Inject(method = "getCurrentItemAttackStrengthDelay", at = @At("HEAD"), cancellable = true)
     private void hideAttackIndicator(CallbackInfoReturnable<Float> cir) {
         cir.setReturnValue(0.0F);

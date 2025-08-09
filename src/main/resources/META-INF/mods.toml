@@ -1,28 +1,26 @@
-modLoader="javafml"
-loaderVersion="[47,)"
-license="All rights reserved"
+modLoader = "javafml"
+loaderVersion = "[43,)"
+license = "All Rights Reserved"
 
 [[mods]]
-modId="cancel_attack_cooldown"
-version="1.0.0"
-displayName="Cancel Attack Cooldown"
-# logoFile="pack.png"
-authors="Xiaoyu_2009"
-displayURL="https://space.bilibili.com/506597031"
-description='''
+modId = "cancel_attack_cooldown"
+version = "1.0.0"
+displayName = "Cancel Attack Cooldown"
+authors = "Xiaoyu_2009"
+description = '''
 Removed attack interval, attack cooldown timer, and sweep attack.
 '''
 
 [[dependencies.cancel_attack_cooldown]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
-    ordering="NONE"
-    side="BOTH"
+    modId = "forge"
+    mandatory = true
+    versionRange = "[43,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.cancel_attack_cooldown]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1,1.21)"
-    ordering="NONE"
-    side="BOTH" 
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.19.2]"
+    ordering = "NONE"
+    side = "BOTH"
