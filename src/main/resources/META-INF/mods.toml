@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[47,)"
+loaderVersion="[36,)"
 license="All rights reserved"
 
 [[mods]]
@@ -16,13 +16,13 @@ Removed attack interval, attack cooldown timer, and sweep attack.
 [[dependencies.cancel_attack_cooldown]]
     modId="forge"
     mandatory=true
-    versionRange="[47,)"
+    versionRange="[36,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.cancel_attack_cooldown]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.1,1.21)"
+    versionRange="[1.16.5,1.17)"
     ordering="NONE"
-    side="BOTH" 
+    side="BOTH"
