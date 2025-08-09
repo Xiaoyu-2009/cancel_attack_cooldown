@@ -1,31 +1,15 @@
 plugins {
-    id 'eclipse'
-    id 'idea'
+    id 'java-library'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'net.neoforged.moddev' version '2.0.94'
+    id 'idea'
 }
 
-version = '1.20.1-forge-1.0.0'
-group = 'cancel_attack_cooldown'
+version = mod_version
+group = mod_group_id
 
-// 禁用测试源集
-sourceSets {
-    test {
-        java.srcDirs = []
-        resources.srcDirs = []
-    }
-}
-
-// 确保所有任务使用UTF-8编码
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    // 禁用所有编译警告
-    options.compilerArgs += ["-Xlint:none"]
-}
-
-tasks.withType(ProcessResources).configureEach {
-    filteringCharset = 'UTF-8'
+repositories {
+    mavenCentral()
 }
 
 base {
@@ -33,8 +17,8 @@ base {
 }
 
 java {
-    archivesBaseName = '取消攻击间隔1.20.1'
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    archivesBaseName = '取消攻击间隔1.21.1'
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
     
     compileJava {
         options.compilerArgs << '-Xlint:deprecation'
@@ -42,70 +26,42 @@ java {
     }
 }
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
 
     runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
         client {
-            property 'forge.enabledGameTestNamespaces', mod_id
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
         }
 
         server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+
+        configureEach {
+            gameDirectory = project.file('run')
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'forge.logging.console.level', 'debug'
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
         }
     }
 }
 
-sourceSets.main.resources { 
-    srcDir 'src/main/resources'
-}
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
-
-mixin {
-    add sourceSets.main, "cancel_attack_cooldown.refmap.json"
-    config "cancel_attack_cooldown.mixins.json"
-}
-
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
-            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors: mod_authors, mod_description: mod_description,
-    ]
-    inputs.properties replaceProperties
-
-    filesMatching(['pack.mcmeta']) {
-        expand replaceProperties + [project: project]
-    }
-    
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
 jar {
     manifest {
         attributes([
@@ -120,21 +76,40 @@ jar {
     }
     
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    finalizedBy 'reobfJar'
     
     // 设置自定义文件名
     archiveFileName = "cancel_attack_cooldown${version}.jar"
 }
 
+tasks.withType(ProcessResources) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifact jar
+            from components.java
         }
     }
     repositories {
         maven {
             url "file://${project.projectDir}/mcmodsrepo"
         }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ["-Xlint:none"]
+}
+
+tasks.withType(ProcessResources).configureEach {
+    filteringCharset = 'UTF-8'
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }
