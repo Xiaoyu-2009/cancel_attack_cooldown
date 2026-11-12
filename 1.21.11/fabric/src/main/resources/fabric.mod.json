@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "cancel_attack_cooldown",
+  "version": "${version}",
+  "name": "Cancel Attack Cooldown",
+  "description": "Removed attack interval, attack cooldown timer, and sweep attack. 1.21.11 port of Xiaoyu_2009's cancel_attack_cooldown (GPL-3.0).",
+  "authors": [
+    "Xiaoyu_2009"
+  ],
+  "license": "GPL-3.0-or-later",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cancel_attack_cooldown.fabric.CancelAttackCooldownFabric"
+    ]
+  },
+  "mixins": [
+    "cancel_attack_cooldown.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21.11 <1.21.12",
+    "java": ">=21"
+  }
+}

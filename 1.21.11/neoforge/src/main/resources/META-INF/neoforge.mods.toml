@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="GPL-3.0-or-later"
+
+[[mods]]
+modId="cancel_attack_cooldown"
+version="${version}"
+displayName="Cancel Attack Cooldown"
+description='''Removed attack interval, attack cooldown timer, and sweep attack. 1.21.11 port of Xiaoyu_2009's cancel_attack_cooldown (GPL-3.0).'''
+authors="Xiaoyu_2009"
+
+[[mixins]]
+config = "cancel_attack_cooldown.mixins.json"
+
+[[dependencies.cancel_attack_cooldown]]
+modId="neoforge"
+type="required"
+versionRange="[21.11.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cancel_attack_cooldown]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.11,1.21.12)"
+ordering="NONE"
+side="BOTH"
